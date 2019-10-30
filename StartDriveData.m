@@ -2,8 +2,7 @@
 % This lines add all dependences of Data Drive 
 
 % add DyCon Toolbox
-addpath(genpath('/home/djoroya/Documentos/GitHub/DyCon-toolbox'))
-
+addpath(genpath('C:\Users\JorgeJuan\Documents\GitHub\DyCon-toolbox'))
 % Add folders 
 File = 'StartDriveData.m';
 
