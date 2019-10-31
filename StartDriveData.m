@@ -10,3 +10,6 @@ path = which(File);
 path = replace(path,File,'');
 
 addpath(genpath(path))
+
+%%
+unzip('https://github.com/rezaahmadzadeh/Expectation-Maximization/archive/master.zip')

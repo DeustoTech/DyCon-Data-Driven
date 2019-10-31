@@ -1,5 +1,5 @@
 clear all;
-Nx = 50;
+Nx = 30;
 xline = linspace(-1,1,Nx);
 A = -FEFractionalLaplacian(0.5,1,Nx);
 %A = FDLaplacian(xline);
@@ -13,7 +13,7 @@ B = BInterior(xline,a,b);
 %% 
 % For this reason, we need almost 2N^2 mesaurements
 Nt = Nx^2;
-dt = 0.5/Nt;
+dt = 10/Nt;
 ADiscrete = dt*A + eye(Nx);
 K = eye(Nx);
 %%
@@ -25,7 +25,7 @@ u = tms.*sin(3*pi*xms).*sin(3*pi*tms);
 u = u';
 %u = 0.001*u'
 %u = ones(Nx,Nt);
-u = 0*rand(Nx,Nt);
+u = rand(Nx,Nt);
 %%
 x(:,1) = sin(pi*xline');
 x(:,1) = rand(size(xline'));

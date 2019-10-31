@@ -1,5 +1,5 @@
 clear all;
-Nx = 40;
+Nx = 50;
 xline = linspace(-1,1,Nx);
 A = -FEFractionalLaplacian(0.8,1,Nx);
 M =  MassMatrix(xline);
@@ -41,7 +41,7 @@ X2 = x(:,2:end);
 [U,S,V] = svd(X,'econ');
 
 %% truncate at r modes
-r = 5;  
+r = 15;  
 
 U = U(:,1:r);
 S = S(1:r,1:r);

@@ -1,8 +1,8 @@
 clear all;
-Nx = 20;
+Nx = 100;
 xline = linspace(-1,1,Nx);
-A = -FEFractionalLaplacian(0.5,1,Nx);
-%A = FDLaplacian(xline);
+%A = -FEFractionalLaplacian(0.5,1,Nx);
+A = FDLaplacian(xline);
 a = -0.5;
 b = +0.5;
 B = BInterior(xline,a,b);
@@ -12,8 +12,8 @@ B = BInterior(xline,a,b);
 % Total Numer of unknowns quatities; 2N^2
 %% 
 % For this reason, we need almost 2N^2 mesaurements
-Nt = Nx^2;
-dt = 0.5/Nt;
+Nt = 5*Nx^2;
+dt = 10/Nt;
 ADiscrete = dt*A + eye(Nx);
 K = eye(Nx);
 %%
@@ -25,7 +25,7 @@ u = tms.*sin(3*pi*xms).*sin(3*pi*tms);
 u = u';
 %u = 0.001*u'
 %u = ones(Nx,Nt);
-u = 10*rand(Nx,Nt);
+u = 100*rand(Nx,Nt);
 %%
 x(:,1) = sin(pi*xline');
 for k = 1:Nt
@@ -40,8 +40,13 @@ X2 = x(:,2:end);
 %% Unknow B matrix, we create 
 
 XUps = [X ;Upsilon];
-ABmatrix = X2*pinv(XUps);
+%%
+%ABmatrix = X2*pinv(XUps);
+ABmatrix = XUps'\X2';
+%ABmatrix = lsqminnorm(XUps',X2');
+ABmatrix = ABmatrix';
 
+%%
 ADisEsti = ABmatrix(:,1:Nx);
 BDisEsti = ABmatrix(:,Nx+1:end);
 

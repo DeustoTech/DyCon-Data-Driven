@@ -10,7 +10,7 @@ allsolution = solution;
 [Nexp, Nt, Nvar] = size(solution);
 indexspace = [2:(0.5*Nvar-1) (0.5*Nvar+2):Nvar-1];
 %indexspace = 1:Nvar;
-solution = solution(1000:2500,:,indexspace);
+solution = solution(1000:2000,:,indexspace);
 %
 [Nexp, Nt, Nvar] = size(solution);
 % 
@@ -47,19 +47,18 @@ save('/home/djoroya/Documentos/GitHub/Data/dydt.mat','dYdt','Y','tspan','solutio
 clear all
 load('/home/djoroya/Documentos/GitHub/Data/dydt.mat')
 [Nexp, Nt, Nvar] = size(solution);
-
-funcbasis = {@(Y) Y };
 %%
-% funcbasis = {@(Y) Y   , ...
-%              @(Y) Y.^3, ...
-%              @(Y) sin(Y)};
-%%
+ %funcbasis = {@(Y) Y };
+%
+funcbasis = {@(Y) Y   , ...
+           @(Y) (Y).^3};
+% %%
 % funcbasis = {@(Y) Y, ...
 %                  @(Y) sin(Y)};
-%%
-funcbasis = {@(Y) Y     , ...
-             @(Y) Y.^3  , ...
-             @(Y) Y.^5} ;
+% %%
+% funcbasis = {@(Y) Y     , ...
+%              @(Y) Y.^3  , ...
+%              @(Y) Y.^5} ;
 % %              
  Theta = [];
 for ifcn = funcbasis
@@ -77,9 +76,7 @@ figure
 spy(abs(A)>10)
 
 %%
-Acut = A;
-Acut(abs(Acut)>10) = 0;
-surf(Acut)
+surf(A)
 view(0,-90)
 %%
 number_of_exp = 5;
@@ -92,16 +89,20 @@ Yt = reshape(solution(number_of_exp,:,:),Nt,Nvar);
 figure
 subplot(1,3,1)
 surf(Yestimation)
-title('Estimation')
+title('Estimation','FontSize',15)
+shading interp
+
 zlim([-3 3])
 subplot(1,3,2)
 surf(Yt)
-title('Real')
+title('Real','FontSize',15)
 zlim([-3 3])
-
+shading interp
 subplot(1,3,3)
 surf(Yt - Yestimation)
-title('Diff')
+title('Difference','FontSize',15)
+shading interp
+
 zlim([-3 3])
 
 %%

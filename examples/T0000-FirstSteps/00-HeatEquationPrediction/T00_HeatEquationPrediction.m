@@ -1,5 +1,5 @@
 clear all;
-Nx = 30;
+Nx = 1000;
 xline = linspace(-1,1,Nx);
 %A = -FEFractionalLaplacian(0.5,1,Nx);
 A = FDLaplacian(xline);
@@ -10,7 +10,7 @@ A = FDLaplacian(xline);
 % Total Numer of unknowns quatities; 2N^2
 %% 
 % For this reason, we need almost 2N^2 mesaurements
-Nt = Nx^2;
+Nt = 50*Nx^2;
 dt = 0.1/Nt;
 ADiscrete = dt*A + eye(Nx);
 %%
@@ -19,9 +19,9 @@ tspan = linspace(0,5,Nt);
 %%
 
 %%
-%x(:,1) = sin(2*pi*xline');
-%x(:,1) = rand(size(xline'));
-x(:,1) = xline + exp(-2*xline.^2);
+%x(:,1) = cos(0.5*pi*xline');
+x(:,1) = rand(size(xline'));
+%x(:,1) = xline;
 
 for k = 1:Nt
     x(:,k+1) = ADiscrete*x(:,k); 
